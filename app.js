@@ -17,7 +17,7 @@ mongoose.connect(db, {useNewUrlParser: true})
 
 //EJS
 
-app.use(expressLayouts);
+
 
 //Bodyparser
 
@@ -28,9 +28,10 @@ app.set('view engine', 'ejs');
 
 //Routes
 
-app.use('/', require('./routes/index'));
+app.use('/', require('./routes/dashboard'));
+app.use(expressLayouts);
 app.use('/books',require('./routes/books'));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT ,console.log('server started on port ${PORT}'));
+app.listen(PORT ,console.log(`server started on port ${PORT}`));

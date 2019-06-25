@@ -1,0 +1,134 @@
+<html>
+    <title>
+    
+    </title>
+    <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <style>
+      body {
+    background-image:url();
+    background-color:black;
+  }
+  
+  #dashboard{
+      font-style: italic;
+      font-size:200%;
+      color:aquamarine
+  }
+  
+  #landing-header {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+  }
+  
+  #landing-header h1{
+    color:white;
+    font-size:500%;
+  }
+   
+  
+  th ,td{
+    padding:0px;
+  }
+  @media (min-width: 1000px){
+  .jumbotron{
+    background-color:bisque;
+  width:49%;
+  border-spacing: 0px 5px;
+  border-collapse: collapse;
+  margin-left:5px;
+  margin-right:5px;
+    
+  }
+  }
+  
+  @media (max-width: 1000px){
+  .jumbotron{
+    background-color:bisque;
+  width:95%;
+  border-spacing: 0px 5px;
+  border-collapse: collapse;
+  margin-left:5px;
+  margin-right:5px;
+    
+  }
+  }
+    </style>
+   
+    </head>
+
+
+    <body><br>
+        <span id="dashboard">Dashboard</span>
+        <div class=" dropdown pull-right ">
+            
+        <button class="btn btn-primary dropdown-toggle btn-lg  " type="button" 
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">My Account
+        <span class="caret "></span>
+        </button>
+        
+        <ul class="dropdown-menu">
+            <li> <a href='#' >My Details</a></li>
+            <li> <a href='#' >My Books</a></li>
+            <li> <a href='#' >Logout</a></li>
+            
+        </ul>
+        </div><br><br><br>
+        <div id="landing-header" class=" ">
+        <h1>Welcome to OpenLib</h1>
+        <br>
+        
+        
+
+        <a href='/books/books' class="btn btn-success btn-lg">Add New Book</a>
+        
+        <p>
+            <form action="/dashboard" method="GET" class="form-inline">
+                <div class="form-group">
+
+                    <input type="text" name="search" placeholder="Book search..." class="form-control">
+                    
+                    <input type="submit" value="Search" class="btn btn default">
+                </div>
+            </form>
+        </p>
+        <p><h2 style="color:red"><%= noMatch %></h2></p>
+        
+        </div>
+        <% books.forEach(function(book){ %>
+            <div class="container col-sm-12 col-lg-6 jumbotron text-center border" id="jumbotron">
+              <div>
+                <table style="width:95%">
+                  <tr>
+                    <th>Name</th>
+                    <td><%= book.name%></td>
+                  </tr>
+                  <tr>
+                    <th>Author</th>
+                    <td><%= book.author%></td>
+                  </tr>
+                  <tr>
+                      <th>Owner</th>
+                      <td> <%= book.owner%></td>
+                  </tr>
+                  <tr>
+                      <th></th>
+                      <td></td>
+                  </tr>
+                </table>
+                </div>
+                <div>
+                  <p>
+                    <a href="#" class="btn btn-primary">More Info</a>
+                  </p>
+                </div>
+            </div>
+       <% });%>
+
+            
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </body>
+</html>
