@@ -35,6 +35,14 @@ const BookSchema = new mongoose.Schema({
     date:{
         type: Date,
         default: Date.now
+    },
+    owner:{
+        type:String,
+        required:true
+    },
+    Phn_no:{
+        type:String,
+        required:true
     }
 })
 
