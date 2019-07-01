@@ -1,15 +1,54 @@
 const express = require('express');
 const router = express.Router();
-
-
+const { ensureAuthenticated } = require('../config/auth');
 //book model
 const Book = require('../models/Book');
+
+
 //add
-router.get('/books',(req,res) => res.render ('books'));
+router.get('/add/:email',ensureAuthenticated,(req,res) => res.render ('books',{
+        user:req.user
+    })
+);
+
+//delete
+router.get('/delete/:id',ensureAuthenticated,function(req,res){
+    var id = req.params.id;
+    Book.findOneAndRemove({_id:id},function(err){
+      if(err){
+        console.log(err);
+        return res.status(500).send();
+      }
+      return res.redirect('/dashboard/');
+    });
+  
+  });
+
+//bookdetails
+router.get('/infobook/:email',ensureAuthenticated,(req,res) => {
+    const resultarray = [];
+    Book.find({email: req.params.email}, (err, mybook)=> {
+        //console.log("my book is "+mybook[0]);
+        for(var i=0;i<mybook.length;i++){
+        resultarray.push(mybook[i]);
+        }
+        res.render ('infobook',{
+            user:req.user,
+            book:resultarray
+        });
+        
+    })
+    
+    
+
+});
+
+
 
 //add handle
-router.post('/books',(req,res)=>{
+router.post('/add/:email',(req,res)=>{
     const {name, author , edition , genre , subject, description ,lend} =req.body;
+    
 
     let errors= [];
    
@@ -26,7 +65,8 @@ router.post('/books',(req,res)=>{
    if(!lend){
        errors.push({msg: 'Please fill in the lending way'})
    }
-   
+   console.log("experiment "+Book.name);
+
    if(errors.length>0){
        res.render('books',{
            errors,
@@ -49,19 +89,40 @@ router.post('/books',(req,res)=>{
         genre ,
         subject, 
         description ,
-        lend
+        lend,
+        email:req.params.email
 
        });
        //save  book to database
 
        newBook.save()
        .then(book =>{
-           res.redirect('/');
+           res.redirect('/dashboard');
        })
        .catch(err=> console.log(err));
 
-       console.log(newBook)
+       //console.log(newBook)
        
    }
 });
+
+//recent added
+router.get('/recent', (req, res) => {
+    var date1= new Date(req.params.date);
+    var date2 = new Date().getTime();
+    var resultarray = [];
+  
+    Book.find({date:{$gt:date2/(1000 * 60 * 60 * 24)-30}},function(err,mybook){
+      console.log(mybook);
+         
+      for(var i=0;i<mybook.length;i++){
+      resultarray.push(mybook[i]);
+      }
+      res.render ('recent_added',{
+        user:req.user,
+        book:resultarray
+      });
+    
+    });
+  });
 module.exports = router;
