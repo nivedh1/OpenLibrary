@@ -1,0 +1,27 @@
+
+<% book.forEach(function(book){ %>
+    <div class="container col-sm-12 col-lg-6 jumbotron text-center border" id="jumbotron">
+      <div>
+        <table style="width:95%">
+          <tr>
+            <th>Name</th>
+            <td><%= book.name%></td>
+          </tr>
+          <tr>
+            <th>Author</th>
+            <td><%= book.author%></td>
+          </tr>
+          <tr>
+              <th></th>
+              <td></td>
+          </tr>
+        </table>
+        </div>
+        <div><br>
+          <p>
+            <a href="#" class="btn btn-primary">More Info</a>
+            <a href="/books/delete/<%= book.id %>" class="btn btn-primary">delete</a>
+          </p>
+        </div>
+    </div>
+<% });%>

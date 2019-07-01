@@ -1,38 +1,71 @@
+
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-
-
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 const app = express();
 
-//DB config
+// Passport Config
+require('./config/passport')(passport);
 
-const db = require('./config/keys').MongoURI;
+// DB Config
+const db = require('./config/keys').mongoURI;
 
-//connect to Mongo
-mongoose.connect(db, { useNewUrlParser: true })
-    .then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.log(err));
+// Connect to MongoDB
+mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true }
+  )
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
-//EJS
-
-
-
-//Bodyparser
-
-
-app.use(express.urlencoded({ extended: false }));
+// EJS
 
 app.set('view engine', 'ejs');
 
-//Routes
+// Express body parser
+app.use(express.urlencoded({ extended: true }));
 
-app.use('/', require('./routes/dashboard'));
+// Express session
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+// Routes
+
+app.use('/dashboard', require('./routes/dashboard.js'));
 app.use(expressLayouts);
-app.use('/books', require('./routes/books'));
-app.use('/details', require('./routes/details'));
+app.use('/', require('./routes/users.js'));
+app.use('/myaccount', require('./routes/myaccount.js'));
+app.use('/books',require('./routes/books.js'));
+app.use('/details',require('./routes/details.js'));
 
+
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`server started on port ${PORT}`));
+app.listen(PORT, console.log(`Server started on port ${PORT}`));
