@@ -6,7 +6,7 @@
               <i class="fas fa-user-plus"></i> BOOK
             </h1>
             <% include ./partials/messages %>
-            <form action="/books/books" method="POST">
+            <form action="/books/add/<%= user.email %>" method="POST">
               <div class="form-group">
                 <label for="name">Name</label>
                 <input
@@ -88,7 +88,7 @@
                 Add
               </button>
             </form>
-            <p class="lead mt-4">Don't want to add? <a href="/dashboard">cancel</a></p>
+            <p class="lead mt-4">Don't want to add? <a href="/dashboard/">cancel</a></p>
           </div>
         </div>
       </div>
