@@ -38,9 +38,6 @@ router.get('/infobook/:email',ensureAuthenticated,(req,res) => {
         });
         
     })
-    
-    
-
 });
 
 
@@ -69,6 +66,7 @@ router.post('/add/:email',(req,res)=>{
 
    if(errors.length>0){
        res.render('books',{
+           user:req.user,
            errors,
            name,
            author,
@@ -76,7 +74,7 @@ router.post('/add/:email',(req,res)=>{
            genre ,
            subject, 
            description ,
-           lend
+           lend,
    
        });
    }
@@ -90,14 +88,16 @@ router.post('/add/:email',(req,res)=>{
         subject, 
         description ,
         lend,
-        email:req.params.email
+        email:req.params.email,
+        owner:req.user.name,
+        Phn_no:req.user.number
 
        });
        //save  book to database
 
        newBook.save()
        .then(book =>{
-           res.redirect('/dashboard');
+           res.redirect('/dashboard/');
        })
        .catch(err=> console.log(err));
 

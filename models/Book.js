@@ -38,13 +38,16 @@ const BookSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    email:{
+        type:String
+    },
     owner:{
         type:String,
-        required:true
+        required:false
     },
     Phn_no:{
         type:String,
-        required:true
+        required:false
     }
 })
 

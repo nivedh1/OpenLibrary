@@ -1,3 +1,4 @@
+dbPassword = 'mongodb+srv://anjali:aszxas@mycluster-kjvid.mongodb.net/test?retryWrites=true&w=majority'
 module.exports = {
-    MongoURI: 'mongodb+srv://rikesh:rikesh@cluster0-ne9bb.mongodb.net/test?retryWrites=true&w=majority'
-}
+    mongoURI: dbPassword
+};
