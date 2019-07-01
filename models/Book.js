@@ -1,3 +1,5 @@
+
+
 const mongoose = require('mongoose');
 
 const BookSchema = new mongoose.Schema({
@@ -17,6 +19,8 @@ const BookSchema = new mongoose.Schema({
      genre: {
         type: String,
         required: true
+
+                    
     },
     subject: {
         type: String,
@@ -34,8 +38,13 @@ const BookSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    email:{
-      type: String,
+    owner:{
+        type:String,
+        required:true
+    },
+    Phn_no:{
+        type:String,
+        required:true
     }
 })
 
