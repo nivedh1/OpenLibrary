@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
-//book model
 const Book = require('../models/Book');
-
+const transaction=require('../models/transaction');
+const lendDetail=require('../models/lendDetail')
+//const fetch=require('node-fetch')
 
 //add
 router.get('/add/:email',ensureAuthenticated,(req,res) => res.render ('books',{
@@ -24,21 +25,11 @@ router.get('/delete/:id',ensureAuthenticated,function(req,res){
   
   });
 
-//bookdetails
-router.get('/infobook/:email',ensureAuthenticated,(req,res) => {
-    const resultarray = [];
-    Book.find({email: req.params.email}, (err, mybook)=> {
-        //console.log("my book is "+mybook[0]);
-        for(var i=0;i<mybook.length;i++){
-        resultarray.push(mybook[i]);
-        }
-        res.render ('infobook',{
-            user:req.user,
-            book:resultarray
-        });
-        
-    })
-});
+
+
+
+
+
 
 
 
@@ -66,7 +57,6 @@ router.post('/add/:email',(req,res)=>{
 
    if(errors.length>0){
        res.render('books',{
-           user:req.user,
            errors,
            name,
            author,
@@ -75,6 +65,8 @@ router.post('/add/:email',(req,res)=>{
            subject, 
            description ,
            lend,
+           email:req.user.email,
+           Phn_no:req.user.number
    
        });
    }
@@ -88,16 +80,32 @@ router.post('/add/:email',(req,res)=>{
         subject, 
         description ,
         lend,
-        email:req.params.email,
-        owner:req.user.name,
+        OriginalEmail:req.user.email,
+        CurrentEmail:req.user.email,
         Phn_no:req.user.number
+        //email:req.params.email
 
        });
        //save  book to database
 
        newBook.save()
        .then(book =>{
-           res.redirect('/dashboard/');
+           var d=new Date();
+            const newLendDetail = new lendDetail({
+                Owner:req.user.email,
+                books:book._id,
+                Persons_Taken:[req.user.email],
+                date_Array:[d]
+            })
+
+            newLendDetail.save()
+            .then(nld=>{
+                console.log(nld.Persons_Taken)
+                console.log(nld.date_Array)
+                res.redirect('/dashboard');
+            })
+            .catch(err=> console.log(err));
+           
        })
        .catch(err=> console.log(err));
 
@@ -105,6 +113,7 @@ router.post('/add/:email',(req,res)=>{
        
    }
 });
+
 
 //recent added
 router.get('/recent', (req, res) => {
