@@ -3,7 +3,12 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const Book = require('../models/Book');
 const transaction=require('../models/transaction');
-const lendDetail=require('../models/lendDetail')
+const lendDetail=require('../models/lendDetail');
+
+
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setSubstitutionWrappers('{{', '}}');             
 
 router.get('/infobook/:email',ensureAuthenticated,(req,res) => {
     var resultarray = [];
@@ -30,14 +35,17 @@ router.get('/infobook/:email',ensureAuthenticated,(req,res) => {
 var d=new Date();
  
     if(req.query.email){
-
+        
+        console.log(req.query.book)
         Book.findByIdAndUpdate(req.query.book,{$set:{CurrentEmail:req.query.email}},(err,book)=>{
             if(err){
                 console.log(err)
             }else{
+                console.log(req.query.book)
                 //lendDetail.find({books:book._id},(err,ld)=>{
                     lendDetail.findOneAndUpdate({
                         books:req.query.book
+                        
                     },{"$push" :{"Persons_Taken":req.query.email,"date_Array":d}},(function(err,ld){
                         if(err){
                             console.log(err)
@@ -45,17 +53,33 @@ var d=new Date();
                             
                             console.log(`person array is ${ld.Persons_Taken} and date array is ${ld.date_Array}`)
                            // console.log(ld.date_Array)
-                            console.log("hi")
-                            const msg = {
-                                to:req.query.book.CurrentEmail,
-                                from:req.user.email,
-                                subject: 'testing',
-                                text: 'the mailing feature of node js',
-                                html: '<strong>Hey great the mailing feature now works</strong>',
-                                };
-                                sgMail.send(msg);
-                                res.send(`${req.user.email}   ${req.query.book.CurrentEmail}`)
-                        }
+                            console.log(req.query.book.CurrentEmail)
+                            Book.findById(req.query.book,(err,foundBook)=>{
+                                    const msg = {
+                                        to:'rkshest111@gmail.com',
+                                        from:'openlib@openlib.com',
+                                        subject: 'Confirmation of book',
+                                        text: 'Do not of reply',
+                                        html: '<strong>This is an auto-generated mail , do not reply</strong>',
+                                        templateId:'3321e63f-6aa1-4012-903a-66543fa85bd9',
+                                        substitutions:{
+                                            bookName:foundBook.name,
+                                            author:foundBook.author,
+                                            method:foundBook.lend,
+                                            edition:foundBook.edition,
+                                            genre:foundBook.genre,
+                                            subject:foundBook.subject,
+                                            name:req.user.name,
+                                            email:req.user.email,
+                                            phone:req.user.number,
+
+                                        },
+                                        };
+                                    
+                                        sgMail.send(msg);
+                                    });
+                                        
+                                }
                     }))
 
             }
