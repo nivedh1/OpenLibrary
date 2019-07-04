@@ -122,7 +122,7 @@ router.get('/recent', (req, res) => {
     var resultarray = [];
   
     Book.find({date:{$gt:date2/(1000 * 60 * 60 * 24)-30}},function(err,mybook){
-      console.log(mybook);
+    
          
       for(var i=0;i<mybook.length;i++){
       resultarray.push(mybook[i]);
