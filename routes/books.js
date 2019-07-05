@@ -90,12 +90,12 @@ router.post('/add/:email',(req,res)=>{
 
        newBook.save()
        .then(book =>{
-           var d=new Date();
+          // var d=new Date();
             const newLendDetail = new lendDetail({
                 Owner:req.user.email,
                 books:book._id,
                 Persons_Taken:[req.user.email],
-                date_Array:[d]
+                date_Array:[new Date()]
             })
 
             newLendDetail.save()

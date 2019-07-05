@@ -12,7 +12,6 @@ router.get("/:id", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log(foundBook)
                 //render show template with that book
             res.render("show", { Book: foundBook });
         }

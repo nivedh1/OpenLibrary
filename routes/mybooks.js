@@ -32,7 +32,7 @@ router.get('/infobook/:email',ensureAuthenticated,(req,res) => {
             NoMatch:NoMatch
         })
    // Book.findByIdAndUpdate(req.query.book,{$set:{}})
-var d=new Date();
+//var d=new Date();
  
     if(req.query.email){
         
@@ -46,17 +46,17 @@ var d=new Date();
                     lendDetail.findOneAndUpdate({
                         books:req.query.book
                         
-                    },{"$push" :{"Persons_Taken":req.query.email,"date_Array":d}},(function(err,ld){
+                    },{"$push" :{"Persons_Taken":req.query.email,"date_Array":new Date()}},(function(err,ld){
                         if(err){
                             console.log(err)
                         }else{
                             
                             console.log(`person array is ${ld.Persons_Taken} and date array is ${ld.date_Array}`)
                            // console.log(ld.date_Array)
-                            console.log(req.query.book.CurrentEmail)
+                            //console.log(req.query.book.CurrentEmail)
                             Book.findById(req.query.book,(err,foundBook)=>{
                                     const msg = {
-                                        to:'rkshest111@gmail.com',
+                                        to:foundBook.CurrentEmail,
                                         from:'openlib@openlib.com',
                                         subject: 'Confirmation of book',
                                         text: 'Do not of reply',
@@ -147,21 +147,23 @@ router.get('/borrowedBooks/:email',ensureAuthenticated,(req,res)=>{
             NoMatch:NoMatch
         })
     })
-    var d=new Date();
+   // var d=new Date();
     if(req.query.email){
         var id=req.query.book;
         Book.findByIdAndUpdate(id,{$set:{CurrentEmail:req.query.email}},(err,book)=>{
             if(err){
                 console.log(err)
             }else{
+               // var d=new Date();
                 //lendDetail.find({books:book._id},(err,ld)=>{
                     lendDetail.findOneAndUpdate({
                         books:req.query.book
-                    },{$set :{"$push" :{"Persons_Taken":req.query.email,"date_Array":d}}},(function(err,ld){
+                    },{$set :{"$push" :{"Persons_Taken":req.query.email,"date_Array":new Date()}}},(function(err,ld){
                         if(err){
                             console.log(err)
                         }else{
                             console.log(ld.Persons_Taken)
+                            res.redirect('/borrowedBooks/:email')
                         }
                     }))
 

@@ -17,7 +17,7 @@ router.get("/request/:id", function(req, res) {
         }
         else{
             const msg = {
-            to:'suramnivedh555@gmail.com',
+            to:foundBook.CurrentEmail,
             from:'openlib@openlib.com',
             subject: 'Request of book ',
             text: 'Do not reply',
@@ -30,15 +30,16 @@ router.get("/request/:id", function(req, res) {
                 edition:foundBook.edition,
                 genre:foundBook.genre,
                 subject:foundBook.subject,
-               // name:req.user.name,
-                //email:req.user.email,
-                //phone:req.user.number,
-               // user_id:req.user._id,
-               // book_id:foundBook._id,
+                name:req.user.name,
+                email:req.user.email,
+                phone:req.user.number,
+               user_id:req.user._id,
+                book_id:foundBook._id,
+               dummy:'movies'
             },
         };
             sgMail.send(msg);
-           // res.send(`${req.user.email}   ${foundBook.CurrentEmail}`)
+            res.send(`${req.user.email}   ${foundBook.CurrentEmail}`)
         }
     });
 
@@ -51,7 +52,7 @@ router.get("/reject/:id/:requestorId", function(req, res) {
         else{
             user.findById(req.params.requestorId,(err,foundUser)=>{
                     const msg = {
-                    to:'suramnivedh555@gmail.com',
+                    to:foundUser.email,
                     from:'openlib@openlib.com',
                     subject: 'Rejection of requested book ',
                     text: 'Do not reply',
@@ -77,5 +78,6 @@ router.get("/reject/:id/:requestorId", function(req, res) {
     });
 
 });
+
 
 module.exports = router

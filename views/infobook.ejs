@@ -35,7 +35,13 @@
                   <input type="text" name="book" display=none value="<%= book._id%>" style="display:none"> 
                   <input type="submit" name="GO" >
               </form>
-              <a href="/mailing/reject/<%= book._id%>/<%= user._id %>" class="btn btn-primary">delete</a><br>
+              <!--<form method="GET" action="/mailing/reject">
+                <button onClick="f1()">Want to reject a request?</button>
+                <input type="text" id="btn" name="email" placeholder=" Email of the person" >
+                <input type="text" name="book" display=none value="<%= book._id%>" style="display:none"> 
+                <input type="submit" name="GO" value="Reject" >
+            </form>-->
+             
             </p>
             
           </div>
