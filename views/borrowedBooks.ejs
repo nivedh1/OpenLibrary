@@ -1,0 +1,43 @@
+<body>
+
+    <div>
+      <a href='/books/infobook/<%= user.email%>' class="btn btn-success">books i have</a>
+      <a href='/books/sharedBooks/<%= user.email%>' class="btn btn-success">books shared</a>
+      <a href='/books/borrowedBooks/<%= user.email%>' class="btn btn-success">books borrowed</a>
+      
+    </div>
+    <p><%= NoMatch %></p>
+    <% book.forEach(function(book){ %>
+        <div class="container col-sm-12 col-lg-6 jumbotron text-center border" id="jumbotron">
+          <div>
+            <table style="width:95%">
+              <tr>
+                <th>Name</th>
+               <td><%= book.name%></td>
+              </tr>
+              <tr>
+                <th>Author</th>
+                <td><%= book.author%></td>
+              </tr>
+              <tr>
+                  <th></th>
+                  <td></td>
+              </tr>
+            </table>
+            </div>
+            <div><br>
+              <p>
+                <a href="/details/<%= book._id%>" class="btn btn-primary">More Info</a>
+                
+                <form method="GET" action="/books/infobook/<%= user.email %>">
+                    <button onClick="f1()">shared book with someone?</button>
+                    <input type="text" id="btn" name="name" placeholder=" email of person to whom you have given" >
+                    <input type="text" name="book" display=none value="<%= book._id%>" style="display:none"> 
+                    <input type="submit" name="GO" >
+                </form>
+              </p>
+              
+            </div>
+        </div>
+    <% });%>
+      </body>
