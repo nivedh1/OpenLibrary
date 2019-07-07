@@ -19,7 +19,11 @@
   }
   body {font-family: "Lato", sans-serif}
 .mySlides {display: none}
-  
+  .buton{
+    background-color: black;
+    color:white;
+    font-size:16px;
+  }
   #dashboard{
       font-style: italic;
       font-size:200%;
@@ -37,11 +41,20 @@
     color:white;
     font-size:500%;
   }
-   
+  table{
+  margin:5% 5px;
+  padding:100px 100px;
+}
+th{
+  padding:5px;
+}
+td{
+  font-style:italic;
+  padding:5px;
+  position:relative;
+}
   
-  th ,td{
-    padding:0px;
-  }
+
   @media (min-width: 1000px){
   .jumbotron{
     background-color:bisque;
@@ -60,6 +73,44 @@
 
   <% include ./partials/navybar %>
   <div>
+      <div class="modal fade" id="myModal">
+          <div class="modal-dialog " >
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Your Details</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                      <table>
+                              <tr>
+                                <th class="th1">Name</th>
+                                <td><%= user.name%></td>
+                              </tr>
+                              <tr>
+                                  <th>Email</th>
+                                  <td><%= user.email%></td>
+                              </tr>
+                              <tr>
+                                    <th>Phone Number</th>
+                                    <td><%= user.number%></td>
+                              </tr>
+                      </table>
+
+                      <p><a herf="/myaccount/update/<%= user._id %>" class="btn btn-primary" onclick="location.reload();location.href='myaccount/update/<%= user._id %>'">Change Details?</a></p>
+              </div>
+              
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+              
+            </div>
+          </div>
+        </div> 
 
         <div id="landing-header" class=" ">
         <h1>Welcome to OpenLib</h1>
