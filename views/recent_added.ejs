@@ -22,7 +22,7 @@
 			<header class="clearfix">
 				
 				<nav class="codrops-demos">
-					<a href="/dashboard/" style="font-size: 25px">Circulation Desk&nbsp;</a>
+					<a href="/dashboard/" style="font-size: 25px">back to Dashboard&nbsp;</a>
 					<a class="current-demo" href="/logout" style="font-size: 25px">logout</a>
 				</nav>
 				<span class="support-note" style="font-size: 30px">Recently Added Books</span>
@@ -71,7 +71,14 @@
                           <th>Description&nbsp;</th>
                           <td> <%= book[0].description%></td>
                       </tr>
-                      
+                      <tr>
+                        <th>Current owner</th>
+                        <td><%= book[0].CurrentEmail%></td>
+                      </tr>
+                      <tr>
+                        <th>Original owner</th>
+                        <td><%= book[0].OriginalEmail%></td>
+                      </tr>
                     </table>
                   </div>
                     <p>

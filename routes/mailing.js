@@ -39,7 +39,11 @@ router.get("/request/:id", function(req, res) {
             },
         };
             sgMail.send(msg);
-            res.send(`${req.user.email}   ${foundBook.CurrentEmail}`)
+            req.flash(
+                'success_msg',
+                'Your request has been sent successfully'
+              );
+            res.redirect('/dashboard');
         }
     });
 
@@ -69,10 +73,15 @@ router.get("/reject/:id/:requestorId", function(req, res) {
                         email:req.user.email,
                         phone:req.user.number,
                         //dummy:'messages',
+                        
                     },
                 };
                     sgMail.send(msg);
-                    res.send(`${req.user.email}   ${foundBook.CurrentEmail}`)
+                    req.flash(
+                        'success_msg',
+                        'You have rejected the request'
+                      );
+                    res.redirect('/dashboard');
             });
                 }
     });
