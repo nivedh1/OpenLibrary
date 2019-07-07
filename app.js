@@ -62,10 +62,10 @@ app.use(express.static('public'))
 app.use('/dashboard', require('./routes/dashboard.js'));
 app.use('/details',require('./routes/details.js'));
 app.use('/books',require('./routes/sharedInfo.js'))
-app.use('/books',require('./routes/books.js'));
 app.use(expressLayouts);
 //app.use('/books',require('./routes/mybooks.js'))
 app.use('/myaccount', require('./routes/myaccount.js'));
+app.use('/books',require('./routes/books.js'));
 
 //app.use('/details',require('./routes/details.js'));
 
