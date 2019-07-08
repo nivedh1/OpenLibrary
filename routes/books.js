@@ -194,7 +194,7 @@ router.get('/delete/:id',ensureAuthenticated,function(req,res){
 
 
 //add handle
-router.post('/add/:email',(req,res)=>{
+router.post('/add/:email',ensureAuthenticated,(req,res)=>{
     const {name, author , edition , genre , subject, description ,lend} =req.body;
     
 
@@ -280,7 +280,7 @@ router.post('/add/:email',(req,res)=>{
 
 
 //recent added
-router.get('/recent', (req, res) => {
+router.get('/recent',ensureAuthenticated, (req, res) => {
     var date1= new Date(req.params.date);
     var date2 = new Date().getTime();
     var resultarray = [];
