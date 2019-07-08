@@ -3,7 +3,7 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const Book = require('../models/Book');
 const transaction=require('../models/transaction');
-
+var User =require('../models/User');
 
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -54,7 +54,7 @@ router.get("/reject/:id/:requestorId", function(req, res) {
             console.log(err);
         }
         else{
-            user.findById(req.params.requestorId,(err,foundUser)=>{
+            User.findById(req.params.requestorId,(err,foundUser)=>{
                     const msg = {
                     to:foundUser.email,
                     from:'openlib@openlib.com',
