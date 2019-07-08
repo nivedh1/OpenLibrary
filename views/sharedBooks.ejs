@@ -732,12 +732,12 @@ a {
 			<header class="clearfix">
 				<h1>Book Shelf</h1>
 				<nav class="codrops-demos">
-          <a class="current-demo" href="/dashboard/">Circulation Desk</a>
-          <li>
+          <a class="current-demo" href="/dashboard/">Dashboard</a>
+          <ul>
               <a href='/books/infobook/<%= user.email%>'>Books I have </a>
               <a href='/books/sharedBooks/<%= user.email%>'>Books I have Shared</a>
               <a href='/books/borrowedBooks/<%= user.email%>'>Books I have Borrowed</a>
-          </li>
+          <ul>
 					
 				</nav>
 				<span class="support-note" style="font-size: 20px; border-bottom: double 3px;">My Books</span>
@@ -806,11 +806,19 @@ a {
           
 					<li>
               <h3>
-                  <span>Anthony Burghiss</span>
-                  <span>A Catwork Orange</span>
+                  <span style="color: green">Ernest Morgan</span>
                 </h3>
-                <p>Social prophecy? Black comedy? Study of freewill? A Clockwork Orange is all of these. It is also a dazzling experiment in language, as Burghiss creates a new language - 'meow', the cat slang of a not-too-distant future.</p>
-              
+				<p>“I enjoy sharing my books as I do my friends, asking only that you treat them well 
+					and see them safely home.” </p>
+			<h3><span style="color: green">Henry Miller</span>	</h3>
+			
+			<p>“A book lying idle on a shelf is wasted ammunition. Like money, books must be kept in constant 
+				circulation... A book is not only a friend, it makes friends for you. When you have possessed a book with mind and spirit, you are enriched. But when you pass it on you are enriched threefold.”</p>
+
+			<h3>
+				<span style="color: green">Donalyn Miller</span>
+			</h3>
+			“Books are love letters passed between us, adding a layer of conversation beyond our spoken words.”
           </li>
 				</ul>
 			</div>
