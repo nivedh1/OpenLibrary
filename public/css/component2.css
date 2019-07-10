@@ -219,7 +219,7 @@
 	left: 20px;
 	bottom: 20px;
 	right: 20px;
-/* 	padding: 30px; */
+	/* padding: 30px; */
 	overflow: hidden;
 	background: #fff;
 	opacity: 0;
@@ -367,7 +367,7 @@
 }
 
 .book-2 .bk-cover h2 span:first-child:before {
-	content: 'A novel';
+	content: '';
 	font-family: "Big Caslon", "Book Antiqua", "Palatino Linotype", Georgia, serif;
 	text-transform: uppercase;
 	position: absolute;
@@ -378,14 +378,14 @@
 }
 
 .book-2 .bk-cover h2 span:last-child {
-	font-size: 100px;
-	line-height: 80px;
+	font-size: 40px;
+	line-height:30px;
 	display: block;
 	position: relative;
 }
 
 .book-2 .bk-cover h2 span:last-child:before {
-	content: 'by';
+	content: '';
 	font-size: 16px;
 	color: red;
 	position: absolute;
@@ -394,7 +394,7 @@
 	font-family: "Big Caslon", "Book Antiqua", "Palatino Linotype", Georgia, serif;
 }
 
-.book-2 .bk-cover h2 span:last-child:after {
+/* .book-2 .bk-cover h2 span:last-child:after {
 	content: '';
 	width: 20px;
 	height: 20px;
@@ -403,12 +403,12 @@
 	position: absolute;
 	top: 5px;
 	left: 101px;
-}
+} */
 
 .book-2 .bk-left h2 {
-	font-size: 20px;
+	font-size: 16px;
 	line-height: 40px;
-	padding-right: 10px;
+	padding-right: 3px;
 	text-align: right;
 }
 
