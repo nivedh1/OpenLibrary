@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-
+const path= require('path');
 const app = express();
 
 // Passport Config
@@ -27,6 +27,9 @@ mongoose
 
 app.set('view engine', 'ejs');
 
+app.set('View', path.join(__dirname , 'views'));
+
+app.set(express.static(path.join(__dirname,'public')));
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
 
@@ -55,16 +58,19 @@ app.use(function(req, res, next) {
 });
 
 // Routes
-
+app.use(express.static('public'))
 app.use('/dashboard', require('./routes/dashboard.js'));
+app.use('/details',require('./routes/details.js'));
+app.use('/books',require('./routes/sharedInfo.js'))
 app.use(expressLayouts);
-app.use('/', require('./routes/users.js'));
+//app.use('/books',require('./routes/mybooks.js'))
 app.use('/myaccount', require('./routes/myaccount.js'));
 app.use('/books',require('./routes/books.js'));
-app.use('/details',require('./routes/details.js'));
-app.use('/books',require('./routes/mybooks.js'))
-app.use('/mailing',require('./routes/mailing'))
 
+//app.use('/details',require('./routes/details.js'));
+
+app.use('/mailing',require('./routes/mailing'))
+app.use('/', require('./routes/users.js'));
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
