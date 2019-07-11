@@ -114,7 +114,9 @@ td{
 
         <div id="landing-header" class=" ">
         <h1>Welcome to RAINbook</h1>
-       <h4 style="color:blue"> <% include ./partials/messages %></h4>
+
+       <h4 style="color:blue ;font-size: 32px"> <b><% include ./partials/messages %></b></h4>
+
         <br>
         
         
@@ -134,6 +136,7 @@ td{
         <p><h2 style="color:red"><%= noMatch %></h2></p>
         
         </div>
+        <div class="container">
         <% books.forEach(function(book){ %>
             <div class="container col-sm-12 col-lg-6 jumbotron text-center border" id="jumbotron">
               <div>
@@ -169,10 +172,13 @@ td{
             </div>
        <% });%>
           </div>
+
+        </div>
        <script>
         // Automatic Slideshow - change image every 4 seconds
         var myIndex = 0;
-        carousel();
+        // carousel();
+
         
         
         function myFunction() {

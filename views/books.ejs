@@ -8,13 +8,13 @@
             <% include ./partials/messages %>
             <form action="/books/add/<%= user.email %>" method="POST">
               <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Book Name</label>
                 <input
                   type="name"
                   id="name"
                   name="name"
                   class="form-control"
-                  placeholder="Enter Name"
+                  placeholder="Enter Book Name"
                   value="<%= typeof name != 'undefined' ? name : '' %>"
                 />
               </div>

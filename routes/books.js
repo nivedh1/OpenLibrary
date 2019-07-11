@@ -63,7 +63,9 @@ router.get('/infobook/:email',ensureAuthenticated,(req,res) => {
                                         subject: 'Confirmation of book',
                                         text: 'Do not of reply',
                                         html: '<strong>This is an auto-generated mail , do not reply</strong>',
-                                        templateId:'3321e63f-6aa1-4012-903a-66543fa85bd9',
+
+                                        templateId:'4cf76db7-60d7-478d-9663-779a542ed4b3',
+
                                         substitutions:{
                                             bookName:foundBook.name,
                                             author:foundBook.author,
@@ -180,6 +182,10 @@ router.get('/delete/:id',ensureAuthenticated,function(req,res){
         console.log(err);
         return res.status(500).send();
       }
+      req.flash(
+        'success_msg',
+        'You have successfully deleted your book'
+      );
       return res.redirect('/dashboard/');
     });
   
