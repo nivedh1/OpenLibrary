@@ -37,11 +37,6 @@ router.post('/update/:id', (req, res) => {
     
     const { name, email, password, password2,number } = req.body;
     let errors = [];
-  
-    // if (!name || !email || !password || !password2|| !number) {
-    //   errors.push({ msg: 'Please enter all fields' });
-    // }
-  
     if (password != password2) {
       errors.push({ msg: 'Passwords do not match' });
     }
@@ -91,28 +86,41 @@ router.post('/update/:id', (req, res) => {
                   foundObject.number=req.body.number;
                 }
         
-                if(req.body.password){
+                if(req.body.password!=''){
                   foundObject.password=req.body.password;
+                  bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(foundObject.password, salt, (err, hash) => {
+                      if (err) throw err;
+                      foundObject.password = hash;
+                      foundObject
+                        .save()
+                        .then(user => {
+                          req.flash(
+                            'success_msg',
+                            'You have updated your details'
+                          );
+                          res.redirect('/login');
+                        })
+                        .catch(err => console.log(err));
+                    });
+                  });
+                
+                }else{
+                  foundObject
+                        .save()
+                        .then(user => {
+                          req.flash(
+                            'success_msg',
+                            'You have updated your details'
+                          );
+                          res.redirect('/login');
+                        })
+                        .catch(err => console.log(err));
                 }
               }
             }
-            bcrypt.genSalt(10, (err, salt) => {
-              bcrypt.hash(foundObject.password, salt, (err, hash) => {
-                if (err) throw err;
-                foundObject.password = hash;
-                foundObject
-                  .save()
-                  .then(user => {
-                    req.flash(
-                      'success_msg',
-                      'You have updated your details'
-                    );
-                    res.redirect('/dashboard/');
-                  })
-                  .catch(err => console.log(err));
-              });
-            });
-  
+          
+            
           });  
         }
       });
