@@ -10,23 +10,24 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
 
-router.get("/mailing/:id", function(req, res) {
+router.get("/request/:id", function(req, res) {
     Book.findOne({_id:req.params.id},function(err,foundBook){
         if(err){
             console.log(err);
         }
         else{
             const msg = {
-            to: req.user.email,
-            from:foundBook.email,
-            subject: 'testing',
-            text: 'the mailing feature of node js',
-            html: '<strong>Hey great the mailing feature now works</strong>',
+            to:'nivedh@iitk.ac.in',
+            from:req.user.email,
+            subject: 'Request of book ',
+            text: 'hugy',
+            html: '<strong> You have been requested the book <%= foundBook.name%> </strong>',
             };
             sgMail.send(msg);
-            res.send(`${req.user.email}   ${foundBook.email}`)
+            res.send(`${req.user.email}   ${foundBook.CurrentEmail}`)
         }
     });
 
 });
+
 module.exports = router

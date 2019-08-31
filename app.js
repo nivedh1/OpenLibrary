@@ -63,7 +63,7 @@ app.use('/myaccount', require('./routes/myaccount.js'));
 app.use('/books',require('./routes/books.js'));
 app.use('/details',require('./routes/details.js'));
 app.use('/books',require('./routes/mybooks.js'))
-//app.use('/mailing',require('./routes/mailing'))
+app.use('/mailing',require('./routes/mailing'))
 
 
 mongoose.set('useNewUrlParser', true);

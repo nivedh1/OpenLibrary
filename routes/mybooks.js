@@ -46,6 +46,15 @@ var d=new Date();
                             console.log(`person array is ${ld.Persons_Taken} and date array is ${ld.date_Array}`)
                            // console.log(ld.date_Array)
                             console.log("hi")
+                            const msg = {
+                                to:req.query.book.CurrentEmail,
+                                from:req.user.email,
+                                subject: 'testing',
+                                text: 'the mailing feature of node js',
+                                html: '<strong>Hey great the mailing feature now works</strong>',
+                                };
+                                sgMail.send(msg);
+                                res.send(`${req.user.email}   ${req.query.book.CurrentEmail}`)
                         }
                     }))
 
